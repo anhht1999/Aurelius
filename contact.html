@@ -1,3 +1,12 @@
+<?php require_once( 'couch/cms.php' ); ?>
+<cms:template title='Contact us'/>
+    <cms:editable name='group_social' label='Social Profiles' desc='Your accounts on Social sites' type='group'/>
+    <cms:editable name='twitter_id' label='Your Twitter ID' group='group_social' type='text'/>
+    <cms:editable name='facebook_id' label='Your Facebook ID' group='group_social' type='text'/>
+    <cms:editable name='stumbleupon_id' label='Your Stumbleupon ID' group='group_social' type='text'/>
+    <cms:editable name='flickr_id' label='Your Flickr ID' group='group_social' type='text'/>
+    <cms:editable name='delicious_id' label='Your Delicious ID' group='group_social' type='text'/>
+</cms:template>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -49,51 +58,66 @@
 
 		<!-- Column 1 / Content -->
 		<div class="grid_8">
+            <cms:editable name='contact_intro' label='Introductory text' type='richtext'>
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vel porta erat. Quisque sit amet risus at odio pellentesque sollicitudin. Proin suscipit molestie facilisis. Aenean vel massa magna. Proin nec lacinia augue. Mauris venenatis libero nec odio viverra consequat. In hac habitasse platea dictumst.</p>
-			<!-- Contact Form -->
-			<form action='index.html' method='post' id='contact_form'>
+			</cms:editable>
+            <!-- Contact Form -->
+			<cms:form action='' method='post' id='contact_form'>
 					<h3>Contact Form</h3>
 				<div class="hr dotted clearfix">&nbsp;</div>
 				<ul>						
 					<li class="clearfix"> 
 						<label for="name">Name</label>
-						<input type='text' name='name' id='name' />
+						<cms:input type='text' name='name' id='name' required='1'/>
 						<div class="clear"></div>
-						<p id='name_error' class='error'>Insert a Name</p>
-					</li> 
+                        <cms:if k_error_name>
+						    <p id='name_error' class='error' style="display:block">Insert a Name</p>
+                        </cms:if>
+                    </li> 
 					<li class="clearfix"> 
 						<label for="email">Email Address</label>
-						<input type='text' name='email' id='email' />
+						<cms:input type='text' name='email' id='email' required='1' validator='email' />
 						<div class="clear"></div>
-						<p id='email_error' class='error'>Enter a valid email address</p>
-					</li> 
+                        <cms:if k_error_email>
+						    <p id='email_error' class='error' style="display:block">Enter a valid email address</p>
+                        </cms:if>
+                    </li> 
 					<li class="clearfix"> 
 						<label for="subject">Subject</label>
-						<input type='text' name='subject' id='subject' />
+						<cms:input type='text' name='subject' id='subject' required='1'/>
 						<div class="clear"></div>
-						<p id='subject_error' class='error'>Enter a message subject</p>
-					</li> 
+                        <cms:if k_error_subject>
+						    <p id='subject_error' class='error' style="display:block">Enter a message subject</p>
+                        </cms:if>
+                    </li> 
 					<li class="clearfix"> 
 						<label for="message">Message</label>
-						<textarea name='message' id='message' rows="30" cols="30"></textarea>
+						<cms:input type='textarea' name='message' id='message' required='1' rows="30" cols="30"></cms:input>
 						<div class="clear"></div>
-						<p id='message_error' class='error'>Enter a message</p>
-					</li> 
+                        <cms:if k_error_message>
+						    <p id='message_error' class='error' style="display:block">Enter a message</p>
+                        </cms:if>
+                    </li> 
 					<li class="clearfix"> 
-						
-					<p id='mail_success' class='success'>Thank you. I'll get back to you as soon as possible.</p>
-					<p id='mail_fail' class='error'>Sorry, an error has occured. Please try again later.</p>
+					<cms:if k_success>
+					    <p id='mail_success' class='success' style="display:block">Thank you. I'll get back to you as soon as possible.</p>
+                        <cms:send_mail from=k_email_from to=k_email_to subject='Feedback from your site'>
+                            The following is an email sent by a visitor to your ste:
+                            </cms:show k_success /> 
+                        </cms:send_mail>
+                    </cms:if>
+                    <p id='mail_fail' class='error'>Sorry, an error has occured. Please try again later.</p>
 					<div id="button">
 					<input type='submit' id='send_message' class="button" value='Submit' />
 					</div>
 					</li> 
 				</ul> 
-			</form>  
+			</cms:form>  
 		</div>
 		
 		<!-- Column 2 / Sidebar -->
 		<div class="grid_4 contact">
-		
+		<cms:editable name='contact_details' label='Contact Details' type='richtext'>
 			<!-- Adress and Phone Details -->
 			<h4>Address and Phone</h4> 
 			<div class="hr dotted clearfix">&nbsp;</div>
@@ -115,18 +139,42 @@
 				<li>General - <a href="mailto:info@yourcompany.com">info@yourcompany.com</a></li> 
 				<li>Sales - <a href="mailto:sales@yourcompany.com">sales@yourcompany.com</a></li> 
 			</ul> 
-			
+			</cms:editable>
 			<!-- Social Profile Links -->
+            <cms:capture into='profiles_output' >
 			<h4>Social Profiles</h4> 
 			<div class="hr dotted clearfix">&nbsp;</div>
 			<ul> 
-				<li class="float"><a href="#"><img alt="" src="images/twitter.png" title="Twitter" /></a></li> 
-				<li class="float"><a href="#"><img alt="" src="images/facebook.png" title="Facebook" /></a></li> 
-				<li class="float"><a href="#"><img alt="" src="images/stumbleupon.png" title="StumbleUpon" /></a></li> 
-				<li class="float"><a href="#"><img alt="" src="images/flickr.png" title="Flickr" /></a></li> 
-				<li class="float"><a href="#"><img alt="" src="images/delicious.png" title="Delicious" /></a></li> 
-			</ul> 
-			
+                <cms:if "<cms:not_empty twitter_id/>">
+				<li class="float"><a href="<cms:show twitter_id />"><img alt="" src="images/twitter.png" title="Twitter" /></a></li> 
+				<cms:set has_profile='1' 'global' />
+                </cms:if>
+
+                <cms:if "<cms:not_empty facebook_id/>">
+                <li class="float"><a href="<cms:show facebook_id />"><img alt="" src="images/facebook.png" title="Facebook" /></a></li> 
+				<cms:set has_profile='1' 'global' />
+                </cms:if>
+
+                <cms:if "<cms:not_empty stumbleupon_id/>">
+                <li class="float"><a href="<cms:show stumbleupon_id />"><img alt="" src="images/stumbleupon.png" title="StumbleUpon" /></a></li> 
+				<cms:set has_profile='1' 'global' />
+                </cms:if>
+
+                <cms:if "<cms:not_empty flickr_id/>">
+                <li class="float"><a href="<cms:show flickr_id />"><img alt="" src="images/flickr.png" title="Flickr" /></a></li> 
+				<cms:set has_profile='1' 'global' />
+                </cms:if>
+
+                <cms:if "<cms:not_empty delicious_id/>">
+                <li class="float"><a href="<cms:show delicious_id />"><img alt="" src="images/delicious.png" title="Delicious" /></a></li> 
+                <cms:set has_profile='1' 'global' />
+                </cms:if>
+            </ul>
+
+            </cms:capture>
+            <cms:if has_profile>
+                <cms:show profiles_output />
+			</cms:if>
 		</div>
 		
 		<div class="hr grid_12 clearfix">&nbsp;</div>
@@ -141,3 +189,4 @@
 
 </body>
 </html>
+<?php COUCH::invoke(); ?>
