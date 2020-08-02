@@ -1,3 +1,82 @@
+<?php require_once( 'couch/cms.php' ); ?>
+<cms:template title='Portfolio' clonable='1'>
+	<cms:editable
+		      name='content'
+		      label='Content'
+		      desc='Enter description of portfolio item here'
+		      type='richtext' />
+	<cms:editable
+		      name='website'
+		      label='Website'
+		      desc='Enter site\'s URL here'
+		      type='text' >
+		      www.siteurlgoeshere.com
+	</cms:editable>
+	<cms:editable name='group_img1' label='First Image' desc='First Image' type='group'/>
+	<cms:editable 
+	              name='image_1'
+		      label='Image 1'
+		      desc='Upload First image of portfolio here'
+		      crop='1'
+		      width='600'
+		      height='300'
+		      group='group_img1'
+		      type='image'
+	/>
+	<cms:editable 
+	              name='thumb'
+		      label='Image thumbnail'
+		      desc='Thumbnail of first image'
+		      width='223'
+		      height='112'
+		      show_preview='1'
+		      assoc_field='image_1'
+		      group='group_img1'
+		      type='thumnail'
+	/>
+	<cms:editable 
+	              name='image_1_title'
+		      label='Image Title'
+		      desc='Enter image\'s title here'
+		      group='group_img1'
+		      type='text' />
+
+	<cms:editable name='group_img2' label='Second Image' desc='Second Image' type='group'/>
+	<cms:editable 
+	              name='image_2'
+		      label='Image 2'
+		      desc='Upload second image of portfolio here'
+		      crop='1'
+		      width='600'
+		      height='300'
+		      group='group_img2'
+		      type='image'
+	/>
+	<cms:editable 
+	              name='image_2_title'
+		      label='Image Title'
+		      desc='Enter image\'s title here'
+		      group='group_img2'
+		      type='text' />
+				 
+	<cms:editable name='group_img3' label='Third Image' desc='Third Image' type='group'/>
+	<cms:editable 
+	              name='image_3'
+		      label='Image 3'
+		      desc='Upload third image of portfolio here'
+		      crop='1'
+		      width='600'
+		      height='300'
+		      group='group_img3'
+		      type='image'
+	/>
+	<cms:editable 
+	              name='image_3_title'
+		      label='Image Title'
+		      desc='Enter image\'s title here'
+		      group='group_img3'
+		      type='text' />
+</cms:template>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -177,3 +256,5 @@
 
 </body>
 </html>
+<?php COUCH::invoke(); ?>
+
